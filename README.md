@@ -1,55 +1,40 @@
-# Chatterbox Multilingual TTS - Local Web Interface
+# Chatterbox Multilingual TTS - Local Immersive Web UI
 
-This repository provides a complete, local web-based Text-to-Speech (TTS) system using the **Chatterbox TTS model**. It includes a modern [Gradio](https://gradio.app/) interface, support for inline emotion tags, and voice cloning capabilities.
+This repository provides a complete, local web-based Text-to-Speech (TTS) system using the **Chatterbox TTS model**. It includes a modern, cyberpunk "Immersive UI" based on Gradio and React, support for inline emotion tags, large-scale character chunking (15,000+ characters), and voice cloning capabilities.
 
 ## 🌟 Key Features
+1. **Immersive UI:** A deeply stylized, cyberpunk aesthetic React interface with audio waveform playback.
+2. **Massive Context Window:** Safely handles up to 15,000 characters by automatically segmenting inputs into manageable chunks to prevent VRAM memory overflows.
+3. **Inline Emotion Tagging:** Parse and render emotional responses locally (e.g., `[joy]Wow![/joy]`).
+4. **Voice Cloning:** Immediate zero-shot voice clones via reference audio uploads.
+5. **1-Click Launchers:** Fully automated setup scripts for Windows, Mac, and Linux that strictly keep your environment safely containerized and hold the Terminal open to view background processes!
 
-1. **Multilingual Support:** Ready to interface with Chatterbox's 23 language capabilities.
-2. **Inline Emotion Tagging:** Parse and render emotional responses directly from text using easy syntax like `[happy]Wow![/happy]`.
-3. **Voice Cloning:** Create immediate voice clones by uploading a short reference `.wav` or `.mp3` file.
-4. **Emotion Exaggeration Control:** Dynamically adjust the strength of the emotions using the UI slider.
-5. **Local Management:** All inputs and output `.wav` files are maintained strictly on your local machine in the `outputs/` folder.
+## 🚀 How to Install and Run Locally
 
-## ⚙️ Setup Instructions
+You do **not** need to manually configure terminals. We have provided automatic 1-click installer scripts!
 
-### 1. Requirements
+**(Prerequisite):** You must have **Python 3.9+** installed on your computer. 
 
-Ensure you have Python 3.9+ installed.
+### For Windows Users
+1. Export this project and extract the ZIP file to your folder/Desktop.
+2. Double click **`start_windows.bat`**.
+   *(Note: It uses `cmd_runner.bat` in the background to ensure your window forcibly stays open in case of errors!)*
+3. It will automatically build an isolated environment, download all neural dependencies natively, and successfully launch!
 
-### 2. Install Dependencies
+### For Mac / Linux Users
+1. Export and extract the ZIP file.
+2. Open your terminal, navigate to the folder, and make the script executable:
+   ```bash
+   chmod +x start_mac_linux.sh
+   ```
+3. Run the launch script:
+   ```bash
+   ./start_mac_linux.sh
+   ```
+   *(If double-clicking from a file explorer natively natively supported on your OS, this script is explicitly configured using a trap catch to pause at the end so you can read any system output without the terminal blinking shut!)*
 
-You can install all necessary packages primarily configured in `requirements.txt`:
-
-```bash
-pip install -r requirements.txt
-```
-
-*Note: Ensure you have `ffmpeg` installed on your host system if you intend to process a variety of audio formats (like specialized mp3s).*
-
-### 3. Integrate Your Chatterbox Model Weights
-
-This codebase is a modular container template. By default, it runs dummy tensor operations so the interface works out of the box.
-
-To hook up your actual model:
-1. Open `tts_model.py`.
-2. Map your Chatterbox model initialization in the `__init__` function.
-3. Replace the `create_voice_profile(...)` dummy code with actual feature/embedding extraction over `reference_audio_path`.
-4. Send the returned parameters alongside `parsed_segments` in `generate_speech(...)` to complete the forward pass.
-
-### 4. Running the Web Interface
-
-Simply run `app.py`:
-
-```bash
-python app.py
-```
-
-Open the local network URL (typically `http://127.0.0.1:7860/`) in your browser to interact with the application.
-
-## 📝 Example Prompts
-
-Try prompting the interface with emotional shifts:
-
-> "[sad]I waited for the bus in the rain for over an hour.[/sad] [happy]But then my best friend drove by and offered me a ride![/happy]"
-
-Use the emotion intensity slide to see how exaggeration control scales the final output.
+## ⚙️ Manual Integration Instructions
+If you wish to link up standard Chatterbox `.safetensors` or `.pth` weights:
+1. Open up `tts_model.py`.
+2. Wire your custom PyTorch model into `__init__`.
+3. The automatic `chunking` infrastructure is already wired safely inside `generate_speech()` to parse the entire 15k limit safely. 

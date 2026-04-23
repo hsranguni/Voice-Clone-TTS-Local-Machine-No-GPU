@@ -1,34 +1,48 @@
 #!/bin/bash
+echo "Starting Chatterbox TTS Setup..."
+echo "Please wait..."
 
-echo "========================================================"
-echo "      CHATTERBOX TTS - 1-CLICK SETUP & LAUNCHER"
-echo "========================================================"
-echo ""
+# Function to pause before exiting so the terminal doesn't close immediately if run via double-click
+pause_on_exit() {
+    echo ""
+    read -p "Press [Enter] to close this window..."
+    exit
+}
 
-# Check if Python3 is installed
+# Trap unexpected errors
+trap 'echo "[ERROR] An unexpected error occurred."; pause_on_exit' ERR
+
+# 1. Check Python
 if ! command -v python3 &> /dev/null; then
-    echo "[ERROR] Python3 is not installed."
-    echo "Please install Python 3.9 or newer."
-    exit 1
+    echo "[ERROR] Python3 is not installed or not in your PATH."
+    pause_on_exit
 fi
 
-echo "[SKIP] Python3 is installed."
-echo ""
-
-# Create virtual environment if it doesn't exist
+# 2. Activate venv or create it
 if [ ! -d "venv" ]; then
-    echo "[1/3] Creating a new Python virtual environment (venv)..."
+    echo "Creating virtual environment..."
     python3 -m venv venv
-else
-    echo "[1/3] Virtual environment already exists."
+    if [ $? -ne 0 ]; then
+        echo "[ERROR] Failed to create virtual environment. Do you have python3-venv installed?"
+        pause_on_exit
+    fi
 fi
 
-echo ""
-echo "[2/3] Activating virtual environment and installing/updating dependencies..."
+echo "Activating environment..."
 source venv/bin/activate
-pip install -r requirements.txt
 
-echo ""
-echo "[3/3] Setup complete! Starting the Chatterbox TTS neural engine..."
-echo "========================================================"
+# 3. Install requirements
+echo "Installing requirements..."
+python3 -m pip install --upgrade pip
+python3 -m pip install -r requirements.txt
+if [ $? -ne 0 ]; then
+    echo "[ERROR] Failed to install requirements. Check internet parsing..."
+    pause_on_exit
+fi
+
+# 4. Run the app
+echo "Launching App..."
 python3 app.py
+
+# Keep window open after app closes
+pause_on_exit
