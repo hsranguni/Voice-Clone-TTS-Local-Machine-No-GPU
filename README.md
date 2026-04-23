@@ -9,6 +9,8 @@ This repository provides a complete, local web-based Text-to-Speech (TTS) system
 4. **Automated Dual-Engine AI:** Seamlessly falls back to lightweight, speedy offline voices (`pyttsx3`) for quick tests, but automatically downloads and implements **XTTS v2 Neural Cloning** natively if you upload a reference voice!
 5. **1-Click Launchers:** Fully automated setup scripts for Windows, Mac, and Linux that strictly keep your environment safely containerized.
 
+> **Having trouble unlocking Voice Cloning?** Check out the [REQUIREMENTS.md](./REQUIREMENTS.md) file for the exact fixes (Python 3.10 and Microsoft C++ Tools).
+
 ---
 
 ## 🚀 How to Install and Run Locally
