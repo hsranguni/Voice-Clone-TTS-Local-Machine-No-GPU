@@ -1,0 +1,6 @@
+{
+  "name": "Chatterbox TTS Local Web UI",
+  "description": "A Python Gradio codebase for integrating Chatterbox TTS with Voice Cloning and Emotion Control.",
+  "requestFramePermissions": [],
+  "majorCapabilities": []
+}
