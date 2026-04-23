@@ -35,12 +35,19 @@ def generate_tts(text_input, reference_audio, intensity):
 # ==========================================
 # Gradio Web Interface Layout
 # ==========================================
-with gr.Blocks(title="Chatterbox Local TTS") as demo:
+with gr.Blocks(title="Chatterbox Local TTS", theme=gr.themes.Default(primary_hue="blue")) as demo:
     gr.Markdown("# 🗣️ Chatterbox Multilingual TTS")
-    gr.Markdown(
-        "A local web interface for the Chatterbox Text-to-Speech model. "
-        "Supports **23 languages**, **voice cloning**, and **emotion exaggeration control**."
-    )
+    
+    # State Banner to inform the user exactly what engine is running
+    if tts_backend.has_neural_clone:
+        gr.Markdown(
+            "✅ **NEURAL ENGINE ACTIVE**: Full XTTS Voice Cloning and Deep Emotion Prosody unlocked."
+        )
+    else:
+        gr.Markdown(
+            "⚠️ **BASIC OFFLINE MODE ACTIVE**: The neural cloning engine failed to install (Likely because you have Python 3.12+ instead of Python 3.10). "
+            "App is falling back to standard Windows/Mac robotic voices. **Voice Cloning is disabled.**"
+        )
     
     with gr.Row():
         with gr.Column(scale=2):
@@ -67,14 +74,21 @@ with gr.Blocks(title="Chatterbox Local TTS") as demo:
                 maximum=2.0, 
                 value=1.0, 
                 step=0.1, 
-                label="Emotion Exaggeration Intensity"
+                label="Emotion Context (Impacts Neural output generation)"
             )
             
         with gr.Column(scale=1):
             reference_audio = gr.Audio(
                 label="Voice Cloning (Reference Audio)",
-                type="filepath"
+                type="filepath",
+                interactive=tts_backend.has_neural_clone,
+                visible=tts_backend.has_neural_clone
             )
+            
+            if not tts_backend.has_neural_clone:
+                gr.Markdown(
+                    "> **Unlock Voice Cloning:** Install **Python 3.10.x** from python.org, delete this folder's `venv` so it resets, and double-click `start_windows.bat` again!"
+                )
             
             generate_btn = gr.Button("🎤 Generate Speech", variant="primary")
             
@@ -91,4 +105,4 @@ if __name__ == "__main__":
     print("Starting Chatterbox Gradio Interface...")
     # For local execution, setting server_name to "127.0.0.1"
     # Launching share=False keeps it strictly local
-    demo.launch(server_name="127.0.0.1", server_port=7860, share=False, theme=gr.themes.Default(primary_hue="blue"))
+    demo.launch(server_name="127.0.0.1", server_port=7860, share=False)

@@ -32,14 +32,20 @@ echo "Activating environment..."
 source venv/bin/activate
 
 # 3. Install requirements
-echo "Installing requirements (NOTE: Downloading Neural Voice Cloning AI may take 3 to 10 minutes depending on internet speed)..."
+echo "Installing core requirements..."
 python3 -m pip install --upgrade pip
 python3 -m pip install -r requirements.txt
 if [ $? -ne 0 ]; then
-    echo "[ERROR] Failed to install requirements. Check internet parsing..."
+    echo "[ERROR] Failed to install core requirements."
     pause_on_exit
 fi
 
+echo ""
+echo "Installing Neural Voice Cloning AI (NOTE: May take 3 to 10 minutes depending on internet speed)..."
+echo "If this fails, the app will safely fall back to the offline computer voice."
+python3 -m pip install TTS
+
+echo ""
 # 4. Run the app
 echo "Launching App..."
 python3 app.py
