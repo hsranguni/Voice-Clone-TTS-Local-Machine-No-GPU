@@ -11,7 +11,7 @@ if not exist "venv\" (
 )
 
 echo Activating environment...
-call venv\Scripts\activate
+call venv\Scripts\activate.bat
 
 echo Installing requirements...
 python -m pip install -r requirements.txt

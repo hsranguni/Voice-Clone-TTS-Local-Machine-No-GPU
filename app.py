@@ -35,7 +35,7 @@ def generate_tts(text_input, reference_audio, intensity):
 # ==========================================
 # Gradio Web Interface Layout
 # ==========================================
-with gr.Blocks(title="Chatterbox Local TTS", theme=gr.themes.Default(primary_hue="blue")) as demo:
+with gr.Blocks(title="Chatterbox Local TTS") as demo:
     gr.Markdown("# 🗣️ Chatterbox Multilingual TTS")
     gr.Markdown(
         "A local web interface for the Chatterbox Text-to-Speech model. "
@@ -73,8 +73,7 @@ with gr.Blocks(title="Chatterbox Local TTS", theme=gr.themes.Default(primary_hue
         with gr.Column(scale=1):
             reference_audio = gr.Audio(
                 label="Voice Cloning (Reference Audio)",
-                type="filepath",
-                help="Upload a short, clear voice clip to clone."
+                type="filepath"
             )
             
             generate_btn = gr.Button("🎤 Generate Speech", variant="primary")
@@ -92,4 +91,4 @@ if __name__ == "__main__":
     print("Starting Chatterbox Gradio Interface...")
     # For local execution, setting server_name to "127.0.0.1"
     # Launching share=False keeps it strictly local
-    demo.launch(server_name="127.0.0.1", server_port=7860, share=False)
+    demo.launch(server_name="127.0.0.1", server_port=7860, share=False, theme=gr.themes.Default(primary_hue="blue"))
