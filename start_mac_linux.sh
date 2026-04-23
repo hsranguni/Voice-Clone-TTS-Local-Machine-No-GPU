@@ -32,7 +32,7 @@ echo "Activating environment..."
 source venv/bin/activate
 
 # 3. Install requirements
-echo "Installing requirements..."
+echo "Installing requirements (NOTE: Downloading Neural Voice Cloning AI may take 3 to 10 minutes depending on internet speed)..."
 python3 -m pip install --upgrade pip
 python3 -m pip install -r requirements.txt
 if [ $? -ne 0 ]; then

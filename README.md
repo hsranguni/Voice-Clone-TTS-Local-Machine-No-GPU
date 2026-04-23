@@ -6,7 +6,7 @@ This repository provides a complete, local web-based Text-to-Speech (TTS) system
 1. **Immersive UI:** A deeply stylized, cyberpunk aesthetic React interface with audio waveform playback.
 2. **Massive Context Window:** Safely handles up to 15,000 characters by automatically segmenting inputs into manageable chunks to prevent VRAM memory overflows.
 3. **Inline Emotion Tagging:** Parse and render emotional responses locally (e.g., `[joy]Wow![/joy]`).
-4. **Voice Cloning:** Immediate zero-shot voice clones via reference audio uploads.
+4. **Automated Dual-Engine AI:** Seamlessly falls back to lightweight, speedy offline voices (`pyttsx3`) for quick tests, but automatically downloads and implements **XTTS v2 Neural Cloning** natively if you upload a reference voice!
 5. **1-Click Launchers:** Fully automated setup scripts for Windows, Mac, and Linux that strictly keep your environment safely containerized.
 
 ---
@@ -21,7 +21,7 @@ You **never** need to manually configure terminals, run `pip install`, or use th
 1. Extract the project ZIP to a folder.
 2. Double-click **`start_windows.bat`**.
    *(Note: This pops open a safe terminal window that physically stays open to prevent crashing.)*
-3. **The First Time Only:** It will spend 2-5 minutes downloading the heavy PyTorch neural network libraries and creating a safe `venv` folder.
+3. **The First Time Only:** It will spend 5-10 minutes downloading the heavy Voice Cloning neural network libraries (`XTTS v2`, `PyTorch`) and creating a safe `venv` folder.
 4. **Every Time After That:** It will see the `venv` folder, skip the download, and boot up your app in **2 seconds**.
 5. Once it says `Running on local URL: http://127.0.0.1:7860`, open that exact link in Chrome/Edge.
 6. When you are done using the TTS engine, simply click the "X" on the black terminal window to turn the engine off.
