@@ -16,14 +16,23 @@ The neural AI models that power Voice Cloning currently **do not support** Pytho
 
 ---
 
-## 2. Microsoft Visual C++ Build Tools
-Because Voice Cloning uses raw C++ code to process audio at lightning speeds, Windows needs to know how to "compile" C++ code. If you don't have this, you will see a red error saying `error: Microsoft Visual C++ 14.0 or greater is required`.
+## 2. Microsoft Visual C++ Build Tools & Redistributable
+Because Voice Cloning uses deep learning frameworks (`PyTorch`) and raw C++ code to process audio at lightning speeds, Windows needs to know how to "compile" and execute C++ code.
 
+If you don't have this, you will see a red error in your terminal saying `error: Microsoft Visual C++ 14.0 or greater is required` OR `OSError: [WinError 1114] A dynamic link library (DLL) initialization routine failed`.
+
+**Part A: The C++ Build Tools**
 1. **Download:** [Click Here to get Microsoft C++ Build Tools](https://visualstudio.microsoft.com/visual-cpp-build-tools/)
 2. Click the **"Download Build Tools"** button on that website and run the installer.
 3. 🚨 **CRITICAL:** A window will pop up asking what you want to install. You **MUST** check the box in the top-left corner that says **"Desktop development with C++"**.
 4. Click **Install** in the bottom right corner. *(Note: This is a few gigabytes and may take 5-10 minutes).*
-5. **Restart your computer** once it finishes to ensure Windows registers the new C++ compilers.
+
+**Part B: The C++ Runtime Library (Crucial for PyTorch)**
+If the engine installed successfully but instantly crashed when booting up the UI with a "PyTorch DLL WinError 1114", your computer is missing the core runtime libraries.
+1. **Download:** [Click Here to get the vc_redist.x64.exe (Official Microsoft Link)](https://aka.ms/vs/17/release/vc_redist.x64.exe)
+2. Run the downloaded file and install it.
+
+**Restart your computer** once you finish installing these to ensure Windows registers the new C++ compilers.
 
 ---
 

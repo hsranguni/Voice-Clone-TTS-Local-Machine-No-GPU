@@ -31,8 +31,8 @@ class ChatterboxTTS:
             print(f"Loading Real Voice Cloning AI on {self.device.upper()}! (This will download ~2GB of weights if first time)")
             self.model = TTS("tts_models/multilingual/multi-dataset/xtts_v2").to(self.device)
             self.has_neural_clone = True
-        except ImportError:
-            print("[NOTICE] Neural Cloning Engine 'TTS' not installed.")
+        except Exception as e:
+            print(f"[NOTICE] Neural Engine could not be fully loaded. Reason: {e}")
             print("[NOTICE] Falling back to standard Windows/Mac built-in offline voice.")
             import pyttsx3
             # Initialize offline fallback engine
