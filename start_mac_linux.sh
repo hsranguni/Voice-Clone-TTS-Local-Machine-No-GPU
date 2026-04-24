@@ -21,7 +21,15 @@ fi
 # 2. Activate venv or create it
 if [ ! -d "venv" ]; then
     echo "Creating virtual environment..."
-    python3 -m venv venv
+    if command -v python3.10 &> /dev/null; then
+        python3.10 -m venv venv
+    elif command -v python3.9 &> /dev/null; then
+        python3.9 -m venv venv
+    elif command -v python3.11 &> /dev/null; then
+        python3.11 -m venv venv
+    else
+        python3 -m venv venv
+    fi
     if [ $? -ne 0 ]; then
         echo "[ERROR] Failed to create virtual environment. Do you have python3-venv installed?"
         pause_on_exit

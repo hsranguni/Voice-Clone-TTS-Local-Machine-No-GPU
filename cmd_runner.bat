@@ -2,10 +2,20 @@
 echo Running inner setup script...
 
 if not exist "venv\" (
-    echo Creating virtual environment using 'python'...
-    python -m venv venv
+    echo Hunting for a compatible Python version ^(3.10 recommended^)...
+    py -3.10 -m venv venv 2>nul
     if not exist "venv\" (
-        echo Creating virtual environment using 'py'...
+        py -3.9 -m venv venv 2>nul
+    )
+    if not exist "venv\" (
+        py -3.11 -m venv venv 2>nul
+    )
+    if not exist "venv\" (
+        echo Creating virtual environment using default 'python'...
+        python -m venv venv
+    )
+    if not exist "venv\" (
+        echo Creating virtual environment using default 'py'...
         py -m venv venv
     )
 )

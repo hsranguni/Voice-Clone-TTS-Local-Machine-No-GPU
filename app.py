@@ -45,7 +45,8 @@ with gr.Blocks(title="Chatterbox Local TTS", theme=gr.themes.Default(primary_hue
         )
     else:
         gr.Markdown(
-            "⚠️ **BASIC OFFLINE MODE ACTIVE**: The neural cloning engine failed to install (Likely because you have Python 3.12+ instead of Python 3.10). "
+            "⚠️ **BASIC OFFLINE MODE ACTIVE**: The neural cloning engine failed to load. "
+            "*(Likely missing Python 3.10 OR the Microsoft C++ Redistributable).* "
             "App is falling back to standard Windows/Mac robotic voices. **Voice Cloning is disabled.**"
         )
     
@@ -87,7 +88,7 @@ with gr.Blocks(title="Chatterbox Local TTS", theme=gr.themes.Default(primary_hue
             
             if not tts_backend.has_neural_clone:
                 gr.Markdown(
-                    "> **Unlock Voice Cloning:** Install **Python 3.10.x** from python.org, delete this folder's `venv` so it resets, and double-click `start_windows.bat` again!"
+                    "> **How to Unlock Voice Cloning:** Open the **`REQUIREMENTS.md`** file in this folder. You need to install Python 3.10 and the C++ Runtime. Then, delete the `venv` folder and run `start_windows.bat` again!"
                 )
             
             generate_btn = gr.Button("🎤 Generate Speech", variant="primary")
